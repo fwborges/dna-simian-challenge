@@ -1,15 +1,16 @@
 package com.br.ml.challenge.simian.simianservice;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 @SpringBootApplication
 public class SimianServiceApplication implements CommandLineRunner {
-
-	@Autowired
-	private Simian simian;
 
 	public static void main(String[] args) {
 		SpringApplication.run(SimianServiceApplication.class, args);
@@ -18,7 +19,6 @@ public class SimianServiceApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-		//simian.isSimian(null);
 
 
 

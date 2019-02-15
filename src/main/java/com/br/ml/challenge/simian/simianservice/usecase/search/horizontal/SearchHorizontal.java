@@ -6,23 +6,26 @@ import com.br.ml.challenge.simian.simianservice.usecase.search.SearchResponse;
 @UseCase
 public class SearchHorizontal {
 
-    private SearchResponse searchResponse = new SearchResponse();
 
     public SearchResponse execute(String[][] matrixDNA) {
 
+        SearchResponse searchResponse = new SearchResponse();
 
         for(int i = 0; i < matrixDNA.length; i++) {
-            for(int j = 0; j < matrixDNA.length; j++) {
 
-                verifyDNA(matrixDNA[i][j]);
+            searchResponse.resetAll();
+
+            for(int j = 0; j < matrixDNA.length; j++) {
+                System.out.print("(" + i + "," + j +")");
+                verifyDNA(matrixDNA[i][j], searchResponse);
             }
         }
 
         return searchResponse;
     }
 
-    private void verifyDNA(String type) {
-
+    private void verifyDNA(String type, SearchResponse searchResponse) {
+        System.out.println(searchResponse.toString());
         switch (type) {
 
             case "A": {

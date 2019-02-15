@@ -36,6 +36,9 @@ public class IsSimian {
                 .map(line -> line.split(""))
                 .toArray(String[][]::new);
 
+        System.out.println(Arrays.deepToString(matrixDna).replace("], ", "]\n").replace("[[", "[").replace("]]", "]"));
+
+
         SearchResponse responseHorizontal = searchHorizontal.execute(matrixDna);
         SearchResponse responseVertical = searchVertical.execute(matrixDna);
         SearchResponse responseDiagonalLR = searchDiagonallyLeftToRight.execute(matrixDna);

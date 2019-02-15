@@ -6,9 +6,9 @@ import com.br.ml.challenge.simian.simianservice.usecase.search.SearchResponse;
 @UseCase
 public class SearchDiagonallyRightToLeft {
 
-    private SearchResponse searchResponse = new SearchResponse();
-
     public SearchResponse execute(String[][] matrixDNA) {
+
+        SearchResponse searchResponse = new SearchResponse();
 
         System.out.println(" =======================  ");
         for(int k = 0; k <= matrixDNA.length -1; k++) {
@@ -16,10 +16,11 @@ public class SearchDiagonallyRightToLeft {
             int j = k;
             int i = matrixDNA.length - 1;
 
+            searchResponse.resetAll();
             while(j >= 0){ //go until first column
 
                 System.out.print(matrixDNA[i][j]);
-                verifyDNA(matrixDNA[i][j]);
+                verifyDNA(matrixDNA[i][j],searchResponse);
 
                 i= i-1;
                 j= j-1;
@@ -33,9 +34,10 @@ public class SearchDiagonallyRightToLeft {
             int i = k;
             int j = matrixDNA.length - 1;
 
+            searchResponse.resetAll();
             while(i >= 0) {
                 System.out.print(matrixDNA[i][j]);
-                verifyDNA(matrixDNA[i][j]);
+                verifyDNA(matrixDNA[i][j], searchResponse);
 
                 i=i-1;
                 j=j-1;
@@ -46,7 +48,7 @@ public class SearchDiagonallyRightToLeft {
         return searchResponse;
     }
 
-    private void verifyDNA(String type) {
+    private void verifyDNA(String type, SearchResponse searchResponse) {
 
         switch (type) {
 

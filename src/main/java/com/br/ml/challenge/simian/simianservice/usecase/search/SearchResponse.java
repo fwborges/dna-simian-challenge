@@ -118,7 +118,11 @@ public class SearchResponse {
     @Override
     public String toString() {
         return "SearchResponse{" +
-                "chainSumA=" + chainSumA +
+                "chainA=" + chainA +
+                ", chainC=" + chainC +
+                ", chainG=" + chainG +
+                ", chainT=" + chainT +
+                ", chainSumA=" + chainSumA +
                 ", chainSumC=" + chainSumC +
                 ", chainSumG=" + chainSumG +
                 ", chainSumT=" + chainSumT +

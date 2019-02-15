@@ -6,22 +6,24 @@ import com.br.ml.challenge.simian.simianservice.usecase.search.SearchResponse;
 @UseCase
 public class SearchVertical {
 
-    private SearchResponse searchResponse = new SearchResponse();
-
     public SearchResponse execute(String[][] matrixDNA) {
 
-        for(int i = 0; i < matrixDNA.length; i++) {
-            for(int j = 0; j < matrixDNA.length; j++) {
+        SearchResponse searchResponse = new SearchResponse();
 
-                verifyDNA(matrixDNA[j][i]);
-                System.out.println(searchResponse.toString());
+        for(int j = 0; j < matrixDNA.length; j++) {
+
+            searchResponse.resetAll();
+
+            for(int i = 0; i < matrixDNA.length; i++) {
+
+                verifyDNA(matrixDNA[i][j], searchResponse);
             }
         }
 
         return searchResponse;
     }
 
-    private void verifyDNA(String type) {
+    private void verifyDNA(String type, SearchResponse searchResponse) {
 
         switch (type) {
 
