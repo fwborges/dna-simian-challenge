@@ -1,7 +1,12 @@
 package com.br.ml.challenge.simian.simianservice.dto;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 public class DnaChainRequest {
 
+    @NotNull
+    @NotEmpty
     private String[] dna;
 
     public String[] getDna() {

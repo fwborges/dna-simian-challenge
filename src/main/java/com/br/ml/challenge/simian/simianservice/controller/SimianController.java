@@ -29,8 +29,14 @@ public class SimianController {
     public ResponseEntity<Boolean> isSimian(@RequestBody DnaChainRequest request) {
 
         //validar antes se matriz é quadrada e se contem apenas A C G T
-        //enviar 403 quando for false
-        return new ResponseEntity<>(isSimian.execute(request.getDna()), HttpStatus.OK);
+
+        Boolean isSimian = this.isSimian.execute(request.getDna());
+
+        if(isSimian) {
+            return new ResponseEntity<>(Boolean.TRUE, HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(Boolean.FALSE, HttpStatus.FORBIDDEN);
     }
 
     @GetMapping("/stats")
