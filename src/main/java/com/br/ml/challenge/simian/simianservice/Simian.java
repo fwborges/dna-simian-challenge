@@ -39,10 +39,10 @@ public class Simian {
         searchDiagonallyLeftToRight(matrixDna);
         searchDiagonallyRightToLeft(matrixDna);
 
-        System.out.println("DNA A: " + countingA);
-        System.out.println("DNA C: " + countingC);
-        System.out.println("DNA T: " + countingT);
-        System.out.println("DNA G: " + countingG);
+        System.out.println("DnaChain A: " + countingA);
+        System.out.println("DnaChain C: " + countingC);
+        System.out.println("DnaChain T: " + countingT);
+        System.out.println("DnaChain G: " + countingG);
 
       return false;
     }
