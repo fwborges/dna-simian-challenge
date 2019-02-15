@@ -70,6 +70,12 @@ public class IsSimian {
 
         System.out.println(allSearchs.toString());
 
+        DnaChain dnaChain = new DnaChain();
+        dnaChain.setDna(Arrays.asList(inputDNA));
+        dnaChain.setSimian(allSearchs.hasAnyDNAChain());
+
+        repository.save(dnaChain);
+
         return allSearchs.hasAnyDNAChain();
     }
 }

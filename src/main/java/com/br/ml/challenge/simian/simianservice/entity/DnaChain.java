@@ -15,6 +15,10 @@ public class DnaChain {
         this.dna = dna;
     }
 
+    public void setSimian(Boolean simian) {
+        this.simian = simian;
+    }
+
     public Boolean isSimian() {
 
         return simian;

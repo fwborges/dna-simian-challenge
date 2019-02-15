@@ -10,4 +10,8 @@ import java.util.Optional;
 public interface DnaChainRepository extends MongoRepository<DnaChain, Long> {
 
     Optional<DnaChain> findByDna(String[] dnaChain);
+
+    Double countBySimianTrue();
+
+    Double countBySimianFalse();
 }
