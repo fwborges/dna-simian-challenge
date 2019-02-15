@@ -18,7 +18,7 @@ public class SimianServiceApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-		simian.isSimian(null);
+		//simian.isSimian(null);
 
 
 

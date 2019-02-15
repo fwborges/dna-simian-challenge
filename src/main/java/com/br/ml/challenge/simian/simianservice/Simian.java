@@ -27,31 +27,12 @@ public class Simian {
     public boolean isSimian(String[] dna1) {
 
         String [] dna = {"CTGAGACTATGC", "CTATGCTATTGT", "TATTGTAGAGGG", "AGAGGGCCCCTA", "CCCCTATCACTG", "TCACTGCTATGC", "TCACTGCTATGC", "TATTGTAGAGGG", "CTGAGACTATGC", "CCCCTATCACTG", "TATACGTGTGAC", "CACATGATCAGT"};
-        String[][] matrixDna = new String[12][12];
 
+        String[][] matrixDna = Arrays.stream(dna)
+                .map(line -> line.split(""))
+                .toArray(String[][]::new);
 
-        Queue<String> dnaChain = new LinkedList<>();
-
-        Arrays.stream(dna)
-                .forEach(string -> {
-
-                    Arrays.stream(string.split("")).forEach(s -> dnaChain.add(s));
-                });
-
-      for(int i = 0; i < matrixDna.length; i++) {
-
-          for(int j = 0; j < matrixDna.length; j++) {
-
-
-                  matrixDna[i][j]= dnaChain.peek();
-                  dnaChain.remove();
-
-
-          }
-      }
-
-
-      System.out.println(Arrays.deepToString(matrixDna).replace("], ", "]\n").replace("[[", "[").replace("]]", "]"));
+        System.out.println(Arrays.deepToString(matrixDna).replace("], ", "]\n").replace("[[", "[").replace("]]", "]"));
 
         searchHorizontal(matrixDna);
         searchVertical(matrixDna);
@@ -116,60 +97,7 @@ public class Simian {
     }
 
     private void verifyDNA(String s) {
-        if (s.equals("A")) {
 
-            A++;
-            T = 0;
-            C = 0;
-            G = 0;
-
-            if (A == 4) {
-                A = 0;
-                countingA++;
-            }
-
-        }
-
-        if (s.equals("T")) {
-            T++;
-            A = 0;
-            C = 0;
-            G = 0;
-
-            if (T == 4) {
-                T = 0;
-                countingT++;
-            }
-
-
-        }
-
-        if (s.equals("C")) {
-            C++;
-            A = 0;
-            T = 0;
-            G = 0;
-
-            if (C == 4) {
-                C = 0;
-                countingC++;
-            }
-
-        }
-
-        if (s.equals("G")) {
-
-            G++;
-            C = 0;
-            A = 0;
-            T = 0;
-
-            if (G == 4) {
-                G = 0;
-                countingG++;
-            }
-
-        }
     }
 
 
