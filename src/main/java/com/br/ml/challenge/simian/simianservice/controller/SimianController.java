@@ -1,7 +1,7 @@
 package com.br.ml.challenge.simian.simianservice.controller;
 
 import com.br.ml.challenge.simian.simianservice.dto.DnaChainRequest;
-import com.br.ml.challenge.simian.simianservice.dto.ResearchStatus;
+import com.br.ml.challenge.simian.simianservice.usecase.research.ResearchStatus;
 import com.br.ml.challenge.simian.simianservice.usecase.research.GetResearchStats;
 import com.br.ml.challenge.simian.simianservice.usecase.simian.IsSimian;
 import org.springframework.beans.factory.annotation.Autowired;

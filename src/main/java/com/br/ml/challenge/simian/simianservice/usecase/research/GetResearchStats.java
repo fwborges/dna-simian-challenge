@@ -1,29 +1,28 @@
 package com.br.ml.challenge.simian.simianservice.usecase.research;
 
 import com.br.ml.challenge.simian.simianservice.common.UseCase;
-import com.br.ml.challenge.simian.simianservice.dto.ResearchStatus;
-import com.br.ml.challenge.simian.simianservice.repository.DnaChainRepository;
+import com.br.ml.challenge.simian.simianservice.gateway.repository.DnaRepoGateway;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @UseCase
 public class GetResearchStats {
 
-    private DnaChainRepository repository;
+    private DnaRepoGateway chainRepoGateway;
 
     @Autowired
-    public GetResearchStats(DnaChainRepository repository) {
-        this.repository = repository;
+    public GetResearchStats(DnaRepoGateway chainRepoGateway) {
+        this.chainRepoGateway = chainRepoGateway;
     }
 
     public ResearchStatus execute() {
 
         ResearchStatus researchStatus = new ResearchStatus();
 
-        Double simianCount = repository.countBySimianTrue();
-        Double humanCount = repository.countBySimianFalse();
+        Double simianCount = chainRepoGateway.countBySimianTrue();
+        Double humanCount = chainRepoGateway.countBySimianFalse();
 
-        researchStatus.setCountHumanDna(humanCount);
-        researchStatus.setCountMutantDna(simianCount);
+        researchStatus.setCount_mutant_dna(simianCount);
+        researchStatus.setCount_human_dna(humanCount);
         researchStatus.setRatio(simianCount / humanCount);
 
         return researchStatus;

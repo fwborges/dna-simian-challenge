@@ -1,8 +1,8 @@
 package com.br.ml.challenge.simian.simianservice.usecase.simian;
 
 import com.br.ml.challenge.simian.simianservice.common.UseCase;
-import com.br.ml.challenge.simian.simianservice.entity.DnaChain;
-import com.br.ml.challenge.simian.simianservice.repository.DnaChainRepository;
+import com.br.ml.challenge.simian.simianservice.entity.DnaChainMeasured;
+import com.br.ml.challenge.simian.simianservice.gateway.repository.DnaRepoGateway;
 import com.br.ml.challenge.simian.simianservice.usecase.search.SearchResponse;
 import com.br.ml.challenge.simian.simianservice.usecase.search.diagonallylefttoright.SearchDiagonallyLeftToRight;
 import com.br.ml.challenge.simian.simianservice.usecase.search.diagonallyrighttoleft.SearchDiagonallyRightToLeft;
@@ -24,24 +24,24 @@ public class IsSimian {
 
     private SearchDiagonallyRightToLeft searchDiagonallyRightToLeft;
 
-    private DnaChainRepository repository;
+    private DnaRepoGateway chainRepoGateway;
 
     @Autowired
-    public IsSimian(SearchHorizontal searchHorizontal, SearchVertical searchVertical, SearchDiagonallyLeftToRight searchDiagonallyLeftToRight, SearchDiagonallyRightToLeft searchDiagonallyRightToLeft, DnaChainRepository repository) {
+    public IsSimian(SearchHorizontal searchHorizontal, SearchVertical searchVertical, SearchDiagonallyLeftToRight searchDiagonallyLeftToRight, SearchDiagonallyRightToLeft searchDiagonallyRightToLeft, DnaRepoGateway chainRepoGateway) {
 
         this.searchHorizontal = searchHorizontal;
         this.searchVertical = searchVertical;
         this.searchDiagonallyLeftToRight = searchDiagonallyLeftToRight;
         this.searchDiagonallyRightToLeft = searchDiagonallyRightToLeft;
-        this.repository = repository;
+        this.chainRepoGateway = chainRepoGateway;
     }
 
     public Boolean execute(String[] inputDNA) {
 
-        Optional<DnaChain> byDna = repository.findByDna(inputDNA);
+        Optional<DnaChainMeasured> byDna = chainRepoGateway.findByDna(inputDNA);
 
         if(byDna.isPresent()) {
-            return byDna.get().isSimian();
+            return byDna.get().getSimian();
         }
 
         String[][] matrixDna = Arrays.stream(inputDNA)
@@ -49,7 +49,6 @@ public class IsSimian {
                 .toArray(String[][]::new);
 
         System.out.println(Arrays.deepToString(matrixDna).replace("], ", "]\n").replace("[[", "[").replace("]]", "]"));
-
 
         SearchResponse responseHorizontal = searchHorizontal.execute(matrixDna);
         SearchResponse responseVertical = searchVertical.execute(matrixDna);
@@ -70,11 +69,11 @@ public class IsSimian {
 
         System.out.println(allSearchs.toString());
 
-        DnaChain dnaChain = new DnaChain();
+        DnaChainMeasured dnaChain = new DnaChainMeasured();
         dnaChain.setDna(Arrays.asList(inputDNA));
         dnaChain.setSimian(allSearchs.hasAnyDNAChain());
 
-        repository.save(dnaChain);
+        chainRepoGateway.save(Optional.of(dnaChain));
 
         return allSearchs.hasAnyDNAChain();
     }
