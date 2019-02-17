@@ -16,6 +16,8 @@ import java.util.Optional;
 @UseCase
 public class IsSimian {
 
+    public static final String ONLY_A_C_G_T = "[AaCcGgTt]+";
+
     private SearchHorizontal searchHorizontal;
 
     private SearchVertical searchVertical;
@@ -38,44 +40,44 @@ public class IsSimian {
 
     public Boolean execute(String[] inputDNA) {
 
-        Optional<DnaChainMeasured> byDna = chainRepoGateway.findByDna(inputDNA);
+        validate(inputDNA);
 
-        if(byDna.isPresent()) {
-            return byDna.get().getSimian();
+        Optional<DnaChainMeasured> dnaChainMeasured = chainRepoGateway.findByDna(inputDNA);
+
+        if(dnaChainMeasured.isPresent()) {
+            return dnaChainMeasured.get().getSimian();
         }
 
-        String[][] matrixDna = Arrays.stream(inputDNA)
-                .map(line -> line.split(""))
-                .toArray(String[][]::new);
-
-        System.out.println(Arrays.deepToString(matrixDna).replace("], ", "]\n").replace("[[", "[").replace("]]", "]"));
+        String[][] matrixDna = convertToMatrix(inputDNA);
 
         SearchResponse responseHorizontal = searchHorizontal.execute(matrixDna);
         SearchResponse responseVertical = searchVertical.execute(matrixDna);
         SearchResponse responseDiagonalLR = searchDiagonallyLeftToRight.execute(matrixDna);
         SearchResponse responseDiagonalRL = searchDiagonallyRightToLeft.execute(matrixDna);
 
-        System.out.println("Horizontal -> " + responseHorizontal.toString());
-        System.out.println("Vertical -> " + responseVertical.toString());
-        System.out.println("Diagonal LR -> " + responseDiagonalLR.toString());
-        System.out.println("Diagonal RL -> " + responseDiagonalRL.toString());
-
-
-
-        SearchResponse allSearchs = responseHorizontal
+        SearchResponse allSearch = responseHorizontal
                                                     .merge(responseVertical)
                                                     .merge(responseDiagonalLR)
                                                     .merge(responseDiagonalRL);
 
-        System.out.println(allSearchs.toString());
+        saveDnaOnDB(inputDNA, allSearch);
+
+        return allSearch.hasAnyDNAChain();
+    }
+
+    private void saveDnaOnDB(String[] inputDNA, SearchResponse allSearchs) {
 
         DnaChainMeasured dnaChain = new DnaChainMeasured();
         dnaChain.setDna(Arrays.asList(inputDNA));
         dnaChain.setSimian(allSearchs.hasAnyDNAChain());
 
         chainRepoGateway.save(Optional.of(dnaChain));
+    }
 
-        return allSearchs.hasAnyDNAChain();
+    private String[][] convertToMatrix(String[] inputDNA) {
+        return Arrays.stream(inputDNA)
+                    .map(line -> line.toUpperCase().split(""))
+                    .toArray(String[][]::new);
     }
 
     private void validate(String[] dnaChain) {
@@ -85,14 +87,13 @@ public class IsSimian {
         Arrays.stream(dnaChain).forEach(dna -> {
 
             if(dna.length() != length) {
-                throw new RuntimeException("Matriz não é quadrada");
+                throw new IllegalInputDNAException("This input is not square matrix");
             }
 
-            if(!dna.matches("//([ACGT])//g")) {
-                throw new RuntimeException("Matriz contem valores não permitidos");
+            if(!dna.matches(ONLY_A_C_G_T)) {
+                throw new IllegalInputDNAException("Input has characters not allowed");
             }
 
         });
-
     }
 }

@@ -115,6 +115,39 @@ public class SearchResponse {
         this.chainT = 0;
     }
 
+
+    public Integer getChainSumA() {
+        return chainSumA;
+    }
+
+    public void setChainSumA(Integer chainSumA) {
+        this.chainSumA = chainSumA;
+    }
+
+    public Integer getChainSumC() {
+        return chainSumC;
+    }
+
+    public void setChainSumC(Integer chainSumC) {
+        this.chainSumC = chainSumC;
+    }
+
+    public Integer getChainSumG() {
+        return chainSumG;
+    }
+
+    public void setChainSumG(Integer chainSumG) {
+        this.chainSumG = chainSumG;
+    }
+
+    public Integer getChainSumT() {
+        return chainSumT;
+    }
+
+    public void setChainSumT(Integer chainSumT) {
+        this.chainSumT = chainSumT;
+    }
+
     @Override
     public String toString() {
         return "SearchResponse{" +

@@ -1,6 +1,7 @@
 package com.br.ml.challenge.simian.simianservice.usecase.search.vertical;
 
 import com.br.ml.challenge.simian.simianservice.common.UseCase;
+import com.br.ml.challenge.simian.simianservice.entity.DNAType;
 import com.br.ml.challenge.simian.simianservice.usecase.search.SearchResponse;
 
 @UseCase
@@ -25,24 +26,26 @@ public class SearchVertical {
 
     private void verifyDNA(String type, SearchResponse searchResponse) {
 
-        switch (type) {
+        DNAType dnaType = DNAType.valueOf(type);
 
-            case "A": {
+        switch (dnaType) {
+
+            case A: {
                 searchResponse.incrementChainA();
                 searchResponse.closeChainingAAsPossible();
                 break;
             }
-            case "C": {
+            case C: {
                 searchResponse.incrementChainC();
                 searchResponse.closeChainingCAsPossible();
                 break;
             }
-            case "G": {
+            case G: {
                 searchResponse.incrementChainG();
                 searchResponse.closeChainingGAsPossible();
                 break;
             }
-            case "T": {
+            case T: {
                 searchResponse.incrementChainT();
                 searchResponse.closeChainingTAsPossible();
                 break;

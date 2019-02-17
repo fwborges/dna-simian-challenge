@@ -1,6 +1,7 @@
 package com.br.ml.challenge.simian.simianservice.usecase.search.horizontal;
 
 import com.br.ml.challenge.simian.simianservice.common.UseCase;
+import com.br.ml.challenge.simian.simianservice.entity.DNAType;
 import com.br.ml.challenge.simian.simianservice.usecase.search.SearchResponse;
 
 @UseCase
@@ -16,7 +17,6 @@ public class SearchHorizontal {
             searchResponse.resetAll();
 
             for(int j = 0; j < matrixDNA.length; j++) {
-                System.out.print("(" + i + "," + j +")");
                 verifyDNA(matrixDNA[i][j], searchResponse);
             }
         }
@@ -25,25 +25,27 @@ public class SearchHorizontal {
     }
 
     private void verifyDNA(String type, SearchResponse searchResponse) {
-        System.out.println(searchResponse.toString());
-        switch (type) {
 
-            case "A": {
+        DNAType dnaType = DNAType.valueOf(type);
+
+        switch (dnaType) {
+
+            case A: {
                 searchResponse.incrementChainA();
                 searchResponse.closeChainingAAsPossible();
                 break;
             }
-            case "C": {
+            case C: {
                 searchResponse.incrementChainC();
                 searchResponse.closeChainingCAsPossible();
                 break;
             }
-            case "G": {
+            case G: {
                 searchResponse.incrementChainG();
                 searchResponse.closeChainingGAsPossible();
                 break;
             }
-            case "T": {
+            case T: {
                 searchResponse.incrementChainT();
                 searchResponse.closeChainingTAsPossible();
                 break;
