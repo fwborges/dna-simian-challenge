@@ -1,7 +1,7 @@
 package com.br.ml.challenge.simian.simianservice.controller;
 
 import com.br.ml.challenge.simian.simianservice.dto.DnaChainRequest;
-import com.br.ml.challenge.simian.simianservice.usecase.research.ResearchStatus;
+import com.br.ml.challenge.simian.simianservice.usecase.research.ResearchStats;
 import com.br.ml.challenge.simian.simianservice.usecase.research.GetResearchStats;
 import com.br.ml.challenge.simian.simianservice.usecase.simian.IsSimian;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +28,6 @@ public class SimianController {
     @PostMapping("/simian")
     public ResponseEntity<Boolean> isSimian(@RequestBody DnaChainRequest request) {
 
-        //validar antes se matriz é quadrada e se contem apenas A C G T
-
         Boolean isSimian = this.isSimian.execute(request.getDna());
 
         if(isSimian) {
@@ -40,7 +38,7 @@ public class SimianController {
     }
 
     @GetMapping("/stats")
-    public ResponseEntity<ResearchStatus> getResearchStats() {
+    public ResponseEntity<ResearchStats> getResearchStats() {
 
         return new ResponseEntity<>(getResearchStats.execute(), HttpStatus.OK);
     }

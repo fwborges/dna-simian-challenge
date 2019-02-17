@@ -14,9 +14,9 @@ public class GetResearchStats {
         this.chainRepoGateway = chainRepoGateway;
     }
 
-    public ResearchStatus execute() {
+    public ResearchStats execute() {
 
-        ResearchStatus researchStatus = new ResearchStatus();
+        ResearchStats researchStatus = new ResearchStats();
 
         Double simianCount = chainRepoGateway.countBySimianTrue();
         Double humanCount = chainRepoGateway.countBySimianFalse();

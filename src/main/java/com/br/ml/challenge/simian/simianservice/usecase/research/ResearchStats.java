@@ -1,7 +1,7 @@
 package com.br.ml.challenge.simian.simianservice.usecase.research;
 
 
-public class ResearchStatus {
+public class ResearchStats {
 
     private Double count_mutant_dna;
 
@@ -9,7 +9,7 @@ public class ResearchStatus {
 
     private Double ratio;
 
-    public ResearchStatus() {
+    public ResearchStats() {
 
         this.count_human_dna = 0.0;
         this.count_mutant_dna = 0.0;
