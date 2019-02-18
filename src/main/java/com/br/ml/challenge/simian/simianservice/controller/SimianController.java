@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
 public class SimianController {
 
@@ -26,7 +28,7 @@ public class SimianController {
     }
 
     @PostMapping("/simian")
-    public ResponseEntity<Boolean> isSimian(@RequestBody DnaChainRequest request) {
+    public ResponseEntity<Boolean> isSimian(@RequestBody @Valid DnaChainRequest request) {
 
         Boolean isSimian = this.isSimian.execute(request.getDna());
 

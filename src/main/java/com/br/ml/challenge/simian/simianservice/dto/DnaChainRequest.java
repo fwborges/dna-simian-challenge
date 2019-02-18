@@ -6,7 +6,7 @@ import javax.validation.constraints.NotNull;
 public class DnaChainRequest {
 
     @NotNull
-    @NotEmpty
+    @NotEmpty(message = "DNA is required")
     private String[] dna;
 
     public String[] getDna() {
