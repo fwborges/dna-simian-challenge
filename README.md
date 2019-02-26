@@ -7,7 +7,7 @@ Api Rest which is responsible to verify DNA Chain and returns if is simian or no
 * ```mvn clean install```
 * On target folder: ```java -jar simian-service-0.0.1-SNAPSHOT.jar```
 
-* The database is MongoDB Atlas, feel free to change application properties with local mongo or docker, etc.
+* The database was MongoDB Atlas, feel free to change application properties with local mongo or docker, etc.
 
 # Urls (Google App Engine) (NOT AVAILABLE ANYMORE)
 
